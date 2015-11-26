@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>增加报账</title>
+	<link rel="stylesheet" href="/account/statics/bootstrap3/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/account/statics/bootstrap3/css/bootstrap-theme.min.css" />	
+	<link rel="stylesheet" href="/account/statics/css/default.css" />
+	<script src="/account/statics/bootstrap3/js/jquery.min.js"></script>
+	<script src="/account/statics/bootstrap3/js/bootstrap.min.js"></script>
+	<script src="/account/statics/bootstrap3/js/public.js"></script>
+	
+	<style type="text/css">
+		body{
+			padding-top: 70px;
+		}
+	</style>
+</head>
+
+<body>
+	<!--nav导航条-->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">	
+		<div class="container">
+			<div class="collapse navbar-collapse">
+			    <ul class="nav navbar-nav">
+			      <li class="active"><a href="#">我的面板</a></li>
+			      <li><a href="/school/index.php/Home/Index/index.html">首页</a></li>
+			      <li><a href="/school/index.php/Home/User/userEdit.html">设置</a></li>			      
+			      <li><a href="#">下载</a></li>
+			      <li><a href="#">登入</a></li>	
+			      <li><a href="#">模块</a></li>		      
+			      <li><a href="#">扩展</a></li>
+			    </ul>
+
+			    <ul class="nav navbar-nav navbar-right">
+			   		<li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#"><i class="glyphicon glyphicon-user"></i> yomi <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/school/index.php/Home/User/userEdit.html" tabindex="-1"><i class="glyphicon glyphicon-cog"></i>	设置</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/school/index.php/Home/Login/logout.html" tabindex="-1"><i class="glyphicon glyphicon-off"></i>	退出</a>
+                            </li>
+                        </ul>
+                    </li>
+			    </ul>
+  			</div><!-- /.navbar-collapse -->
+		</div>
+	</nav>
+	<!--/nav导航条-->
+	<div class="container">
+		<div class="row">
+			
+	<div id="sidebar" class="col-sm-2">
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-primary">
+			    <div class="panel-heading">
+			     	<h4 class="panel-title">
+			       		<a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="glyphicon glyphicon-user"></i> 管 理 事 务</a>
+			      	</h4>
+			    </div>
+			    <div id="collapseOne" class="panel-collapse collapse in">
+				      	<div class="panel-body">
+				         	<ul class=" nav nav-pills nav-stacked">
+					          	<li><a href="/school/index.php/Home/Admin/accountList.html">报账列表</a></li>
+					      		<li><a href="/school/index.php/Home/Admin/accountAdd.html">添加报账</a></li>
+					      		<li><a href="/school/index.php/Home/Admin/newsList.html">新闻列表</a></li>
+					      		<li><a href="/school/index.php/Home/Admin/newsAdd.html">添加新闻</a></li>
+					      		<li><a href="/school/index.php/Home/User/userList.html">用户列表</a></li>
+				      		</ul>
+				     	 </div>
+			    </div>
+	        </div>
+	    </div>    
+</div>	
+
+			
+		<div id="content" class="col-sm-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>报  账  列  表</strong></h4>
+				</div>
+
+				<div class="panel-body">
+					<form class="form-horizontal" action="/school/index.php/Home/Admin/addAccount/uid/1.html" method='post' enctype="multipart/form-data" >
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">发起人:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="builder" id="builder" placeholder="发起人"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">发起部门:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="department" id="department" placeholder="发起部门"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">项目名称:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="project_name" id="project_name" placeholder="项目名称"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">费用类型:</label>
+							<div class="col-sm-5">
+								<select class="form-control" name="fee_kind">
+									<option value="1">交通费</option><option value="2">会议费</option><option value="3">招待费</option><option value="4">开题费、答辩费</option><option value="5">资料及印刷费</option><option value="7">助研劳务费</option><option value="6">学术讲座费</option>								</select>	
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">预计金额:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="pre_money" id="pre_money" placeholder="预计金额"/>		
+							</div>							
+						</div>							
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">附件:</label>
+							<div class="col-sm-5">
+								<input type="file" class="form-control" name="attachment" id="attachment"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">内容简介:</label>
+							<div class="col-sm-5">
+								<textarea class="form-control" name="content" id="content" placeholder="内容简介" rows='11'/></textarea>	
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">负责人意见:</label>
+							<div class="col-sm-5">
+								<textarea class="form-control" name="leading_suggestion" id="leading_suggestion" placeholder="负责人意见" rows='8'/></textarea>		
+							</div>							
+						</div>	
+
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">总监意见:</label>
+							<div class="col-sm-5">								
+								<textarea class="form-control" name="director_suggestion" id="director_suggestion" placeholder="总监意见" rows='8'/></textarea>			
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="status" class="col-sm-2 control-label">审批状态:</label>
+							<div class="col-sm-5">					
+								<label class="btn btn-danger">
+									<input type="radio"  name="status" id="status" checked="checked" value="0" />待定
+								</label>
+								<label class="btn btn-primary">
+									<input type="radio"  name="status" id="status"  value="1" />通过
+								</label>							
+							</div>
+							<label class="col-sm-2 control-label"></label>
+						</div>						
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label"></label>
+							<div class="col-sm-5">
+								<button type="submit" class="btn btn-success btn-add">添加</button>								
+							</div>							
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		</div>
+	</div>
+
+
+</body>
+</html>

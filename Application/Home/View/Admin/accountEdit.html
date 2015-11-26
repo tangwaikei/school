@@ -1,0 +1,110 @@
+<extend name="Index:base" />
+<block name="title"><title>修改报账</title></block>
+<block name="sidebar">
+	<include file="Index:sidebar" />
+</block>
+
+<block name="content">
+		<div id="content" class="col-sm-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>修  改  报  账</strong></h4>
+				</div>
+
+				<div class="panel-body">
+					<form class="form-horizontal" action="{:U('Home/Admin/editAccount')}" method='post' enctype="multipart/form-data">
+						<input type="hidden" name="id" value="{$list.id}">
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">发起人:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="builder" value="{$list.builder}"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">发起部门:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="department" id="department" value="{$list.department}"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">项目名称:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="project_name" id="project_name" value="{$list.project_name}"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">费用类型:</label>
+							<div class="col-sm-5">
+								<select class="form-control" name="fee_kind">
+									<volist name="data" id="vo">
+										<option value="{$vo['id']}" <if condition="($vo['id'] eq $list['fee_kind'])">selected="selected"</if> >{$vo['fee_kind']}</option>
+									</volist>
+								</select>	
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">预计金额:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="pre_money" id="pre_money" value="{$list.pre_money}"/>		
+							</div>							
+						</div>							
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">附件:</label>
+							<div class="col-sm-5">
+								<input type="file" class="form-control" name="attachment" id="attachment" value="{$list.attachment}"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">内容简介:</label>
+							<div class="col-sm-5">
+								<textarea class="form-control" name="content" id="content" value="内容简介" rows='11'/>{$list.content}</textarea>	
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">负责人意见:</label>
+							<div class="col-sm-5">
+								<textarea class="form-control" name="leading_suggestion" id="leading_suggestion" value="负责人意见" rows='8'/>{$list.leading_suggestion}</textarea>		
+							</div>							
+						</div>	
+
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">总监意见:</label>
+							<div class="col-sm-5">								
+								<textarea class="form-control" name="director_suggestion" id="director_suggestion" value="总监意见" rows='8'/>{$list.director_suggestion}</textarea>			
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="status" class="col-sm-2 control-label">审批状态:</label>
+							<div class="col-sm-5">					
+								<label class="btn btn-danger">
+									<input type="radio" id="status" name="status" value="0"<if condition="($list.status eq 0) OR ($list['status'] eq 0) ">checked=""</if> />待定
+								</label>
+								<label class="btn btn-primary">
+									<input type="radio" id="status" name="status" value="1"<eq name="list.status" value="1">checked=""</eq> />通过
+								</label>							
+							</div>
+							<label class="col-sm-2 control-label"></label>
+						</div>						
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label"></label>
+							<div class="col-sm-5">
+								<button type="submit" class="btn btn-success btn-add">修改</button>		
+								<a href="{:U('Home/Admin/accountDelete')}" class="btn btn-danger">删除</a>					
+							</div>							
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+</block>
+

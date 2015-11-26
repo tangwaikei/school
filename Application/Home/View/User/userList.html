@@ -1,0 +1,47 @@
+<extend name="Index:base" />
+<block name="title"><title>用户列表</title></block>
+<block name="sidebar">
+	<include file="Index:sidebar" />
+</block>
+
+<block name="content">
+		<div id="content" class="col-sm-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>用  户  列  表</strong></h4>
+					<a href="{:U('Home/User/userAdd')}"><i class="glyphicon glyphicon-plus"></i></a>
+				</div>
+
+				<div class="panel-body">
+					<table class="table table-hover table-bordered table-condensed">
+						<tr>
+							<td>序号</td>							
+							<td>用户名</td>
+							<td>昵称</td>
+							<td>报账数目</td>							
+							<td>操作</td>
+						</tr>
+						
+						<volist name="data" id="vo">
+							<tr>
+								<td>{$i+$num}</td>
+								<td>{$vo['username']}</td>
+								<td>{$vo['nickname']}</td>					
+								<td>{$vo['accountnum']}</td>		
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="{:U('Home/User/userEdit',array('id'=>$vo['id']))}" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a><a href="{:U('Home/User/userDelete',array('id'=>$vo['id']))}" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a><a href="{:U('Home/Personal/accountList',array('id'=>$vo['id']))}" class="btn btn-info"><i class="glyphicon glyphicon-arrow-right"></i></a>
+									</div>
+								</td>
+							</tr>
+						</volist>
+							<tr>
+								<td colspan="4">{$page}</td>
+							</tr>
+					</table>
+				</div>
+
+			</div>
+		</div>
+</block>
+

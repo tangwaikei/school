@@ -1,0 +1,257 @@
+<?php
+namespace Home\Controller;
+use Home\Controller\BaseController;
+class AdminController extends BaseController{
+	
+	public function accountList(){		
+		$m = D('Account');
+		$count = $m->count();
+		$page = new \Think\Page($count,5);
+		$page ->rollpage = '7';
+		$page ->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+		$show = $page->show();
+		$this->page = $show;
+		$this->num  = $page->firstRow;// 起始行数
+		$sql = "select
+			b.id as id,
+			b.builder as builder,
+			b.department as department,
+			b.build_time as buildtime,
+			b.project_name as project,
+			(select a.fee_kind from think_fee_kind as a where b.fee_kind=a.id) as fee,
+			b.pre_money as money,
+			b.attachment as attachment,
+			b.content as content,
+			b.leading_suggestion as lsuggestion,
+			b.director_suggestion as dsuggestion,
+			b.status as status
+			from think_account b
+			order by id limit {$page->firstRow},{$page->listRows}
+		";
+		$data = $m ->query($sql);
+		$this->data = $data;
+		$this->display();
+	}
+
+	public function accountAdd(){
+		$m = M('fee_kind');
+		$data = $m ->field('id,fee_kind') ->select();//一维数组
+		$this->data = $data;
+		$this->display();
+	}
+	//上传根目录不存在！请尝试手动创建:./Uploads/
+
+	public function addAccount(){
+		$data['builder']      = I('builder');
+		$data['department']   = I('department');
+		$data['project_name'] = I('project_name');	
+		$data['fee_kind']	  = I('fee_kind');
+		$data['pre_money']	  = I('pre_money');		
+		$data['content']	  = I('content');
+		$data['leading_suggestion'] = I('leading_suggestion');
+		$data['director_suggestion']= I('director_suggestion');
+		$data['status'] 	  = I('status');
+		$id = '';
+
+		$upload = new \Think\Upload();
+		$upload->maxSize = 3145728; //3M
+		$upload->exts = array('jpg','gif','png','jpeg', 'txt','doc','docx','xls','xlsx','ppt','ppt', 'pdf');// 设置附件上传类型
+		$upload->savePath = './Public/Upload/';
+		$upload->saveName = 'time'; 
+		$info = $upload->upload();
+		if(!$info)
+			$this->error($upload->getError());
+		else{
+			
+			$m = M('attachment');			
+			$list['file_name'] = $info["attachment"]['savename'];
+			$list['original_name'] = $info["attachment"]['name'];
+			$list['file_size'] = $info["attachment"]['size'];
+			$list['file_type'] = $info["attachment"]['type'];				
+			
+			if($m->data($list)->add()){							
+				$mm = D('Account');
+				$data['attachment'] = $list['file_name'];
+				if($mm ->updateAccount($id,$data))
+					$this->success('上传成功',U('Admin/accountList'));	
+				else
+					$this->error('上传失败');
+			}
+			else{
+				$this->error('文件上传失败');
+			}						
+		}						
+	}
+
+	public function accountEdit(){			
+		$data['id'] = I('id');
+		$m = M('account');
+		$list = $m ->where($data)->find();
+		$this->list = $list;
+
+		$m = M('fee_kind');
+		$data = $m ->field('id,fee_kind')->select();
+		$this->data = $data;
+		$this->display();
+	}
+
+	public function editAccount(){
+		$data['builder']      = I('builder');
+		$data['department']   = I('department');
+		$data['project_name'] = I('project_name');
+		$data['fee_kind'] 	  = I('fee_kind');
+		$data['pre_money']	  = I('pre_money');	
+		$data['content']	  = I('content');
+		$data['leading_suggestion'] = I('leading_suggestion');
+		$data['director_suggestion']= I('director_suggestion');
+		$data['status'] 	  = I('status');
+		
+		$id = I('id');
+		$upload = new \Think\Upload();
+		$upload->maxSize = 3145728; //3M
+		$upload->exts = array('jpg','gif','png','jpeg', 'txt','doc','docx','xls','xlsx','ppt','ppt', 'pdf');// 设置附件上传类型
+		$upload->savePath = './Public/Upload/';
+		$upload->saveName = 'time'; 
+		$info = $upload->upload();
+		if(!$info)
+			$this->error($upload->getError());
+		else{
+
+			$m = M('attachment');			
+			$list['file_name'] = $info["attachment"]['savename'];
+			$list['original_name'] = $info["attachment"]['name'];
+			$list['file_size'] = $info["attachment"]['size'];
+			$list['file_type'] = $info["attachment"]['type'];	
+			//应该用事务，一个文件存储不成功则无法加入报账中
+			if($m->data($list)->add()){							
+				$mm = D('Account');
+				$data['attachment'] = $list['file_name'];
+				if($mm ->updateAccount($id,$data))
+					$this->success('上传成功');	
+				else
+					$this->error('上传失败');
+			}
+			else{
+				$this->error('文件上传失败');
+			}						
+		}						
+	}
+
+	public function accountDelete(){
+		$id = I('id');
+		
+		$m 			= D('Account');		
+		
+		if($m->deleteAccount($id))
+			$this->success('删除成功');
+		else
+			$this->error('删除失败');		
+	}		
+
+	public function newsList(){
+		$m  = M('news');
+		$count = $m->count();
+		$page = new \Think\Page($count,5);
+		$page ->rollpage = '7';
+		$page ->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+		$show = $page->show();
+		$this->page = $show;
+		$this->num  = $page->firstRow;// 起始行数
+
+		$data = $m ->field('id,time,title,click')->select();
+		$this ->data = $data;
+		$this->display();
+	}
+
+	public function newsRead(){
+		$data['id'] = I('id');//接收公告的id
+		$m  = M('news');
+		$this->list = $m ->where($data)->find();
+		$this ->display();
+	}
+
+	public function newsAdd(){		
+		$this->display();
+	}
+
+	public function addNews(){
+		$data['title']  = I('title');
+		$data['content'] = I('content');
+		$id   = '';
+
+		$upload = new \Think\Upload();
+		$upload->maxSize = 3145728; //3M
+		$upload->exts = array('jpg','gif','png','jpeg', 'txt','doc','docx','xls','xlsx','ppt','ppt', 'pdf');// 设置附件上传类型
+		$upload->savePath = './Public/NewsFile/';
+		$upload->saveName = 'time'; 
+		$info = $upload->upload();
+		if(!$info)
+			$this->error($upload->getError());
+		else{
+			$m = M('attachment');			
+			$list['file_name'] = $info["attachment"]['savename'];
+			$list['original_name'] = $info["attachment"]['name'];
+			$list['file_size'] = $info["attachment"]['size'];
+			$list['file_type'] = $info["attachment"]['type'];	
+			//应该用事务，一个文件存储不成功则无法加入报账中
+			if($attachment_id = $m->data($list)->add()){							
+				$mm = D('News');
+				$data['attachment_id'] = $attachment_id;
+				if($mm ->updateNews($id,$data))
+					$this->success('上传成功');	
+				else
+					$this->error('上传失败');
+			}
+			else{
+				$this->error('文件上传失败');
+			}			
+		}
+
+	}
+
+	public function newsEdit(){
+		$m = M('News');
+		$data['id']  = I('id');
+		$this->data = $m ->where($data)->find();
+		$this->display();
+	}
+
+	public function editNews(){
+		$data['title']  = I('title');
+		$data['content'] = I('content');
+		$id   = '';
+		
+		$upload = new \Think\Upload();
+		$upload->maxSize = 3145728; //3M
+		$upload->exts = array('jpg','gif','png','jpeg', 'txt','doc','docx','xls','xlsx','ppt','ppt', 'pdf');// 设置附件上传类型
+		$upload->savePath = './Public/NewsFile/';
+		$upload->saveName = 'time'; 
+		$info = $upload->upload();
+		if(!$info)
+			$this->error($upload->getError());
+		else{
+			$m = M('attachment');			
+			$list['file_name'] = $info["attachment"]['savename'];
+			$list['original_name'] = $info["attachment"]['name'];
+			$list['file_size'] = $info["attachment"]['size'];
+			$list['file_type'] = $info["attachment"]['type'];	
+			//应该用事务，一个文件存储不成功则无法加入报账中
+			if($attachment_id = $m->data($list)->add()){							
+				$mm = D('News');
+				$data['attachment_id'] = $attachment_id;
+				if($mm ->updateNews($id,$data))
+					$this->success('上传成功');	
+				else
+					$this->error('上传失败');
+			}
+			else{
+				$this->error('文件上传失败');
+			}			
+		}
+	}
+
+	public function newsDelete(){
+		$data['id']  = I('id');
+		
+	}
+}

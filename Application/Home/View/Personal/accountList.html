@@ -1,0 +1,68 @@
+<extend name="Index:base" />
+<block name="title"><title>个人报账详情</title></block>
+<block name="sidebar">
+	<include file="Index:sidebar" />
+</block>
+
+<block name="content">
+		<div id="content" class="col-sm-9">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>个  人  报  账  详  情</strong></h4>
+				</div>
+
+				<div class="panel-body">
+					<table class="table table-hover table-bordered table-condensed">
+						<tr>
+							<td>序号</td>							
+							<td>发起人</td>
+							<td>发起部门</td>
+							<td>发起时间</td>
+							<td>项目名称</td>
+							<td>费用类型</td>
+							<td>预计金额</td>
+							<td>附件号</td>
+							<td>内容简介</td>
+							<td>负责人意见</td>
+							<td>总监意见</td>							
+							<td>记账状态</td>
+							<td>操作</td>
+						</tr>
+						
+						<volist name="list" id="vo">
+							<tr>
+								<td>{$i+$num}</td>
+								<td>{$vo['builder']}</td>
+								<td>{$vo['department']}</td>
+								<td>{$vo['buildtime']}</td>
+								<td>{$vo['project']}</td>				
+								<td>{$vo['fee']}</td>								
+								<td>{$vo['money']}</td>
+								<td>{$vo['attachment']}</td>
+								<td>{$vo['content']}</td>
+								<td>{$vo['lsuggestion']}</td>
+								<td>{$vo['dsuggestion']}</td>
+								<td>
+									<if condition="$vo['status'] eq 1"><span class="label label-success"><i class="glyphicon glyphicon-ok"></i></span>
+									<else />
+										<span class="label label-danger">				
+										<i class="glyphicon glyphicon-remove"></i></span>
+									</if>
+								</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="{:U('Home/Personal/accountEdit',array('id'=>$vo['id']))}" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a><a href="{:U('Home/Personal/accountDelete',array('id'=>$vo['id']))}" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+									</div>
+								</td>
+							</tr>
+						</volist>
+							<tr>
+								<td colspan="4">{$page}</td>
+							</tr>
+					</table>
+				</div>
+
+			</div>
+		</div>
+</block>
+

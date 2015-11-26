@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>报账列表</title>
+	<link rel="stylesheet" href="/account/statics/bootstrap3/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/account/statics/bootstrap3/css/bootstrap-theme.min.css" />	
+	<link rel="stylesheet" href="/account/statics/css/default.css" />
+	<script src="/account/statics/bootstrap3/js/jquery.min.js"></script>
+	<script src="/account/statics/bootstrap3/js/bootstrap.min.js"></script>
+	<script src="/account/statics/bootstrap3/js/public.js"></script>
+	
+	<style type="text/css">
+		body{
+			padding-top: 70px;
+		}
+	</style>
+</head>
+
+<body>
+	<!--nav导航条-->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">	
+		<div class="container">
+			<div class="collapse navbar-collapse">
+			    <ul class="nav navbar-nav">
+			      <li class="active"><a href="#">我的面板</a></li>
+			      <li><a href="/school/index.php/Home/Index/index.html">首页</a></li>
+			      <li><a href="/school/index.php/Home/User/userEdit.html">设置</a></li>			      
+			      <li><a href="#">下载</a></li>
+			      <li><a href="#">登入</a></li>	
+			      <li><a href="#">模块</a></li>		      
+			      <li><a href="#">扩展</a></li>
+			    </ul>
+
+			    <ul class="nav navbar-nav navbar-right">
+			   		<li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#"><i class="glyphicon glyphicon-user"></i> yomi <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/school/index.php/Home/User/userEdit.html" tabindex="-1"><i class="glyphicon glyphicon-cog"></i>	设置</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/school/index.php/Home/Login/logout.html" tabindex="-1"><i class="glyphicon glyphicon-off"></i>	退出</a>
+                            </li>
+                        </ul>
+                    </li>
+			    </ul>
+  			</div><!-- /.navbar-collapse -->
+		</div>
+	</nav>
+	<!--/nav导航条-->
+	<div class="container">
+		<div class="row">
+			
+	<div id="sidebar" class="col-sm-2">
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-primary">
+			    <div class="panel-heading">
+			     	<h4 class="panel-title">
+			       		<a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="glyphicon glyphicon-user"></i> 管 理 事 务</a>
+			      	</h4>
+			    </div>
+			    <div id="collapseOne" class="panel-collapse collapse in">
+				      	<div class="panel-body">
+				         	<ul class=" nav nav-pills nav-stacked">
+					          	<li><a href="/school/index.php/Home/Admin/accountList.html">报账列表</a></li>
+					      		<li><a href="/school/index.php/Home/Admin/accountAdd.html">添加报账</a></li>
+					      		<li><a href="/school/index.php/Home/Admin/newsList.html">新闻列表</a></li>
+					      		<li><a href="/school/index.php/Home/Admin/newsAdd.html">添加新闻</a></li>
+					      		<li><a href="/school/index.php/Home/User/userList.html">用户列表</a></li>
+				      		</ul>
+				     	 </div>
+			    </div>
+	        </div>
+	    </div>    
+</div>	
+
+			
+		<div id="content" class="col-sm-9">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>报  账  列  表</strong></h4>
+					<a href="/school/index.php/Home/Admin/accountAdd.html"><i class="glyphicon glyphicon-plus"></i></a>
+				</div>
+
+				<div class="panel-body">
+					<table class="table table-hover table-bordered table-condensed">
+						<tr>
+							<td>序号</td>							
+							<td>发起人</td>
+							<td>发起部门</td>
+							<td>发起时间</td>
+							<td>项目名称</td>
+							<td>费用类型</td>
+							<td>预计金额</td>
+							<td>附件</td>
+							<td>内容简介</td>
+							<td>负责人意见</td>
+							<td>总监意见</td>						
+							<td>记账状态</td>
+							<td>操作</td>
+						</tr>
+						
+						<tr>
+								<td>1</td>
+								<td>wiki</td>
+								<td>行政部</td>
+								<td>2015-08-13 10:30:28</td>
+								<td>前后端技术研讨会</td>				
+								<td>开题费、答辩费</td>				
+								<td>5000.000</td>
+								<td>2</td>
+								<td>学术讲座费：限支付外聘专家学术讲座费，并按国家规定缴纳个人所得税</td>
+								<td>通过</td>
+								<td>通过</td>
+								<td>
+									<span class="label label-success"><i class="glyphicon glyphicon-ok"></i></span>
+																	</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="/school/index.php/Home/Admin/accountEdit/id/1.html" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a><a href="/school/index.php/Home/Admin/accountDelete/id/1.html" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+									</div>
+								</td>
+							</tr><tr>
+								<td>2</td>
+								<td>yomi</td>
+								<td>技术研究部门</td>
+								<td>2015-08-18 21:33:13</td>
+								<td>后端研讨会</td>				
+								<td>交通费</td>				
+								<td>300.000</td>
+								<td>5</td>
+								<td>2222</td>
+								<td>22</td>
+								<td>22</td>
+								<td>
+									<span class="label label-success"><i class="glyphicon glyphicon-ok"></i></span>
+																	</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="/school/index.php/Home/Admin/accountEdit/id/2.html" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a><a href="/school/index.php/Home/Admin/accountDelete/id/2.html" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+									</div>
+								</td>
+							</tr><tr>
+								<td>3</td>
+								<td>121</td>
+								<td>人力资源部门</td>
+								<td>2015-08-17 15:46:06</td>
+								<td>1</td>				
+								<td>招待费</td>				
+								<td>1.000</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+								<td>
+																			<span class="label label-danger">				
+										<i class="glyphicon glyphicon-remove"></i></span>								</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="/school/index.php/Home/Admin/accountEdit/id/3.html" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a><a href="/school/index.php/Home/Admin/accountDelete/id/3.html" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+									</div>
+								</td>
+							</tr><tr>
+								<td>4</td>
+								<td>1211</td>
+								<td>技术研究部门</td>
+								<td>2015-08-17 20:43:25</td>
+								<td>2</td>				
+								<td>招待费</td>				
+								<td>2.000</td>
+								<td>3</td>
+								<td>2</td>
+								<td>2</td>
+								<td>2</td>
+								<td>
+																			<span class="label label-danger">				
+										<i class="glyphicon glyphicon-remove"></i></span>								</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="/school/index.php/Home/Admin/accountEdit/id/4.html" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a><a href="/school/index.php/Home/Admin/accountDelete/id/4.html" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+									</div>
+								</td>
+							</tr><tr>
+								<td>5</td>
+								<td>wiki</td>
+								<td>行政部</td>
+								<td>2015-08-18 13:44:28</td>
+								<td>3</td>				
+								<td>招待费</td>				
+								<td>300.000</td>
+								<td>4</td>
+								<td>333</td>
+								<td>1</td>
+								<td>1</td>
+								<td>
+																			<span class="label label-danger">				
+										<i class="glyphicon glyphicon-remove"></i></span>								</td>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="/school/index.php/Home/Admin/accountEdit/id/5.html" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a><a href="/school/index.php/Home/Admin/accountDelete/id/5.html" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+									</div>
+								</td>
+							</tr>							<tr>
+								<td colspan="4"><div>  <span class="current">1</span><a class="num" href="/school/index.php/Home/Admin/accountList/p/2.html">2</a><a class="num" href="/school/index.php/Home/Admin/accountList/p/3.html">3</a> <a class="next" href="/school/index.php/Home/Admin/accountList/p/2.html">>></a>  <span class="rows">共 15 条记录</span></div></td>
+							</tr>
+					</table>
+				</div>
+
+			</div>
+		</div>
+
+		</div>
+	</div>
+
+
+</body>
+</html>

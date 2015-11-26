@@ -1,0 +1,84 @@
+<extend name="Index:base" />
+<block name="title"><title>修改用户信息</title></block>
+<block name="sidebar">
+	<include file="Index:sidebar" />
+</block>
+<block name="content">
+		<div id="content" class="col-sm-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>修  改  用  户  信  息</strong></h4>
+				</div>
+
+				<div class="panel-body">
+					<form class="form-horizontal" action="{:U('Home/User/editUser')}" method='post'>
+						<input type="hidden" name="id" value="{$list.id}">
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">用户名:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="username" value="{$list.username}"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">昵称:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="nickname" id="nickname" value="{$list.nickname}"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label"></label>
+							<div class="col-sm-5">
+								<button type="submit" class="btn btn-success btn-add">提交</button>		
+								<a class="btn btn-danger" href="{:U('Home/User/userDelete',array('id'=>$list['id']))}">删除</a>					
+							</div>							
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>用  户  账  号  安  全</strong><button type="button" class="btn btn-warning" onclick="showPwd()"><span class="label label-warning">设置</span></button></h4>
+				</div>
+				<div class="panel-body" id="setpwd" style="display:none">		<div style="float:right"><a onclick="hidePwd()">收起</a></div>	
+				    <div>
+				    	<form class="form-horizontal" action="{:U('Home/User/editPwd','','')}" method='post' onSubmit="return checkPwd(this)">
+						<input type="hidden" name="id" value="{$list.id}">
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">当前密码:</label>
+							<div class="col-sm-5">
+								<input type="password" class="form-control" name="currentpwd" id="currentpwd" placeholder="当前密码"/>
+								<span>{$currenttip}</span>	
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">新密码:</label>
+							<div class="col-sm-5">
+								<input type="password" class="form-control" name="pwd" id="pwd" placeholder="新密码"/>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label for="roomname" class="col-sm-2 control-label">确认密码:</label>
+							<div class="col-sm-5">
+								<input type="password" class="form-control" name="rpwd" id="rpwd" placeholder="确认新密码"/>
+								<span>{$pwdtip}</span>		
+							</div>							
+						</div>	
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label"></label>
+							<div class="col-sm-5">
+								<button type="submit" class="btn btn-success btn-add">提交</button>		
+								<a class="btn btn-danger" href="{:U('Home/User/userEdit',array('id'=>$list['id']))}">返回</a>					
+							</div>							
+						</div>
+						</form>
+				    </div>
+				</div>
+			</div>
+		</div>
+</block>
+
