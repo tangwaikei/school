@@ -8,60 +8,65 @@
 		<div id="content" class="col-sm-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h4 class="panel-title"><strong>修  改  报  账</strong></h4>
+					<h4 class="panel-title"><strong>修  改  新  闻</strong></h4>
 				</div>
 
 				<div class="panel-body">
-					<form class="form-horizontal" action="" method='post' enctype="multipart/form-data">
+					<form class="form-horizontal" action="{:U('Home/Admin/newsEdit')}" method='post' enctype="multipart/form-data">
+                                                                 <input type="hidden" name="id" value="{$list.id}">
 					<div id="">
 	
-        <h2><span id="" title="{$list.title}">{$list.title}</span></h2>
-        
-        <table border="0" cellpadding="0" cellspacing="0" class="datetable">
-            <tbody><tr>
-                <td width="2%">
-                    日期(Date)
-                </td>
-                <td colspan="2" width="8%">
-                    <span id="" title="{$list.time}">{$list.time}</span>
-                </td>
-            </tr>                        
-            <!--//2015.02.21 Armstrong 修正網址顯示異常 - start-->
-            <tr class="altrow">
-                <td>
-                    附件(Attach File)
-                </td>
-                <td colspan="2">
-                    <span id=""><a href="{$list.destination}" target="_blank">{$list.filename}</a><br></span>
-                </td>
-            </tr>
-            <!--//2014.12.11 Armstrong 增加瀏覽次數 - start-->
-            <tr>
-                <td style="vertical-align: text-top;">
-                    瀏覽次數(Count)
-                </td>
-                <td colspan="2">
-                    <span id="" title="{$list.click}">{$list.click}</span>
-                </td>
-            </tr>
-            <!--//2014.12.11 Armstrong 增加瀏覽次數 - end-->
-            <tr>
-                <td style="vertical-align: text-top;">
-                    內容(Content)
-                </td>
-                <td colspan="2">
-                    
-                    <span id="" title="{$list.content}">{$list.content}</span>
-                </td>
-            </tr>
-        </tbody></table>
+                                                                        <h2><span id="" title="{$list.title}">{$list.title}</span></h2>
+                                                                        
+                                                                        <table border="0" cellpadding="0" cellspacing="0" class="datetable">
+                                                                            <tbody><tr>
+                                                                                <td width="2%">
+                                                                                    日期(Date)
+                                                                                </td>
+                                                                                <td colspan="2" width="8%">
+                                                                                    <span id="" title="{$list.time}">{$list.time}</span>
+                                                                                </td>
+                                                                            </tr>                        
+                                                                            <!--//2015.02.21 Armstrong 修正網址顯示異常 - start-->
+                                                                            <tr class="altrow">
+                                                                                <td>
+                                                                                    附件(Attach File)
+                                                                                </td>
+                                                                                <td colspan="2">
+                                                                                    <span id=""><a href="{$list.destination}" target="_blank">{$list.filename}</a><br></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <!--//2014.12.11 Armstrong 增加瀏覽次數 - start-->
+                                                                            <tr>
+                                                                                <td style="vertical-align: text-top;">
+                                                                                    瀏覽次數(Count)
+                                                                                </td>
+                                                                                <td colspan="2">
+                                                                                    <span id="" title="{$list.click}">{$list.click}</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <!--//2014.12.11 Armstrong 增加瀏覽次數 - end-->
+                                                                            <tr>
+                                                                                <td style="vertical-align: text-top;">
+                                                                                    內容(Content)
+                                                                                </td>
+                                                                                <td colspan="2">
+                                                                                    
+                                                                                    <span id="" title="{$list.content}">{$list.content}</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody></table>
 
-        <p align="right">
-            <a id="" class="botton01" href="{:U('Home/Admin/newsList')}">返回列表(Retrun To List)</a>
-        </p>
-    
-</div>
-				</div>
+                                                                        <p align="right">
+                                                                            <a id="" class="botton01" href="{:U('Home/Admin/newsList')}">返回列表(Retrun To List)</a>
+                                                                        </p>
+                                                                    
+                                                                </div>
+                                                                 <div class="col-sm-5">
+                                                                    <button type="submit" class="btn btn-success btn-add">编辑</button>                               
+                                                                </div>      
+                                                                </form>
+                                                        </div>
 			</div>
 		</div>
 </block>

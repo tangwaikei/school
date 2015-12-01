@@ -177,7 +177,14 @@ class AdminController extends BaseController{
 	public function addNews(){
 		$data['title']  = I('title');
 		$data['content'] = I('content');
-		$id   = '';
+		$id   = '';		
+		if($_FILES['attachment']['size']==0){
+			$m = M('news');
+			if($m->data($data)->add())
+				$this->redirect('Admin/newsList','',3,'提示:你没有上传文件,新闻添加成功');
+			else
+				$this->error('添加失败!');
+		}
 
 		$upload = new \Think\Upload();
 		$upload->maxSize = 3145728; //3M
@@ -185,8 +192,9 @@ class AdminController extends BaseController{
 		$upload->savePath = './Public/NewsFile/';
 		$upload->saveName = 'time'; 
 		$info = $upload->upload();
-		if(!$info)
-			$this->error($upload->getError());
+		$error = $upload->getError();
+		if(!$info )
+			$this->error($upload->getError());	
 		else{
 			$m = M('attachment');			
 			$list['file_name'] = $info["attachment"]['savename'];
@@ -211,34 +219,56 @@ class AdminController extends BaseController{
 
 	public function newsEdit(){
 		$m = M('News');
-		$data['id']  = I('id');
-		$this->data = $m ->where($data)->find();
+		$id = $data['id']  = I('id');
+		//echo $id;
+		$sql ="
+			select think_news.id as id,
+			think_news.title as title,
+			think_news.content as content,
+			think_attachment.original_name as filename
+			from think_news
+			left join think_attachment 
+			on think_news.attachment_id = think_attachment .id
+			where think_news.id={$id}
+		";
+		$this->data = $m->query($sql);
+		//$this->data = $m ->where($data)->find();//一维数组
+		//dump($this->data);
 		$this->display();
 	}
 
 	public function editNews(){
 		$data['title']  = I('title');
 		$data['content'] = I('content');
-		$id   = '';
-		
+		$condition['id'] = I('id');		
+		$m = M('news');
+		if($_FILES['attachment']['size']==0){
+			if($m->where($condition)->data($data)->save())
+				$this->redirect('Admin/newsList','',3,'提示:你没有上传文件,新闻修改成功');
+			else
+				$this->error('修改失败!');
+		}
+
 		$upload = new \Think\Upload();
 		$upload->maxSize = 3145728; //3M
 		$upload->exts = array('jpg','gif','png','jpeg', 'txt','doc','docx','xls','xlsx','ppt','ppt', 'pdf');// 设置附件上传类型
 		$upload->savePath = './Public/NewsFile/';
 		$upload->saveName = 'time'; 
 		$info = $upload->upload();
-		if(!$info)
-			$this->error($upload->getError());
+		$error = $upload->getError();
+		if(!$info )
+			$this->error($upload->getError());	
 		else{
+			$where['id'] = $m->where($condition)->getFiled('attachment_id');
 			$m = M('attachment');			
 			$list['file_name'] = $info["attachment"]['savename'];
 			$list['original_name'] = $info["attachment"]['name'];
 			$list['file_size'] = $info["attachment"]['size'];
 			$list['file_type'] = $info["attachment"]['type'];	
 			//应该用事务，一个文件存储不成功则无法加入报账中
-			if($attachment_id = $m->data($list)->add()){							
+			if( $m->where($where)->data($list)->save()){							
 				$mm = D('News');
-				$data['attachment_id'] = $attachment_id;
+				$data['attachment_id'] = $where['id'];
 				if($mm ->updateNews($id,$data))
 					$this->success('上传成功');	
 				else
@@ -248,10 +278,23 @@ class AdminController extends BaseController{
 				$this->error('文件上传失败');
 			}			
 		}
+
 	}
 
 	public function newsDelete(){
 		$data['id']  = I('id');
+		$m = M('news');
+		$condition['id'] = $m ->where($data)->getFiled('attachment_id');
+		$mm = M('attachment');
+		if($mm ->where($condition)->delete()){
+			if($m->where($data)->delete()){
+				$this->success('成功删除');
+			}
+			else
+				$this->error('删除失败');
+		}
 		
+
+
 	}
 }
