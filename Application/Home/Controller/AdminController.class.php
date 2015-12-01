@@ -293,8 +293,7 @@ class AdminController extends BaseController{
 			else
 				$this->error('删除失败');
 		}
-		
-
-
+		else
+			$this->error('删除失败');
 	}
 }
