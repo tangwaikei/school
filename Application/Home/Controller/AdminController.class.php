@@ -207,7 +207,7 @@ class AdminController extends BaseController{
 				$mm = D('News');
 				$data['attachment_id'] = $attachment_id;
 				if($mm ->updateNews($id,$data))
-					$this->success('上传成功');	
+					$this->success('上传成功','newsList');	
 				else
 					$this->error('上传失败');
 			}
@@ -271,7 +271,7 @@ class AdminController extends BaseController{
 				$mm = D('News');
 				$data['attachment_id'] = $where['id'];
 				if($mm ->updateNews($id,$data))
-					$this->success('上传成功');	
+					$this->success('上传成功','newsList');	
 				else
 					$this->error('上传失败');
 			}
@@ -289,7 +289,7 @@ class AdminController extends BaseController{
 		$mm = M('attachment');
 		if($mm ->where($condition)->delete()){
 			if($m->where($data)->delete()){
-				$this->success('成功删除');
+				$this->success('成功删除','newsList');
 			}
 			else
 				$this->error('删除失败');
@@ -363,7 +363,7 @@ class AdminController extends BaseController{
 		$index = I('rules');
 		$data['rules']  = $arr[$index-1][0];
 		if($m->data($data)->add()){
-			$this->success('活动添加成功');
+			$this->success('活动添加成功','activityList');
 		}
 		else
 			$this->error('活动添加失败');
@@ -399,7 +399,7 @@ class AdminController extends BaseController{
 		$index = I('rules');
 		$data['rules']  = $arr[$index-1][0];
 		if($m->data($data)->add()){
-			$this->success('活动修改成功');
+			$this->success('活动修改成功','activityList');
 		}
 		else
 			$this->error('活动修改失败');
