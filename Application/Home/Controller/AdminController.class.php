@@ -35,8 +35,9 @@ class AdminController extends BaseController{
 
 	public function accountAdd(){
 		$m = M('fee_kind');
-		$data = $m ->field('id,fee_kind') ->select();//一维数组
+		$data = $m ->field('id,fee_kind') ->select();//二维数组
 		$this->data = $data;
+		//dump($data);
 		$this->display();
 	}
 	//上传根目录不存在！请尝试手动创建:./Uploads/
@@ -281,7 +282,7 @@ class AdminController extends BaseController{
 
 	}
 
-	public function newsDelete(){
+	public function deleteNews(){
 		$data['id']  = I('id');
 		$m = M('news');
 		$condition['id'] = $m ->where($data)->getFiled('attachment_id');
@@ -292,6 +293,122 @@ class AdminController extends BaseController{
 			}
 			else
 				$this->error('删除失败');
+		}
+		else
+			$this->error('删除失败');
+	}
+
+	public function activityList(){
+		$m = M('activity');
+		$count = $m->count();
+		$page = new \Think\Page($count,10);
+		$page ->rollpage = '7';
+		$page ->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+		$show = $page->show();
+		$this->page = $show;
+		$this->num  = $page->firstRow;// 起始行数
+		$data = $m->field('id,end_time,address,name,rules')->select();
+		$this->data = $data;
+		$this->display();
+		//dump($data);
+	}
+
+	public function activityNums(){
+		$data['activity_id']=$where['id'] = I('id');
+		$m = M('activity');
+		$m->where($where)->setInc('num');
+		$data['user_id'] =  session('uid');
+		$mm = M('activity_user');
+		if($mm -> data($data)->add()){
+			$this->success('报名成功','activityList');
+		}
+		else {
+			if(!empty($mm->where($data)->find()))
+				$this->error('你已经报名');
+			else
+				$this->error('报名失败,请稍后再操作');
+		}
+
+	}
+
+	public function activityRead(){
+		$data['id'] = I('id');
+		$m = M('activity');
+		$this->list = $m ->where($data)->find();
+		$this->display();
+	}
+
+	public function activityAdd(){
+		$this->data =  array(
+			array('全体') ,
+			array('老师'),
+			array('学生')
+			);
+		//dump( $this->data);
+		$this->display();
+	}
+
+	public function addActivity(){
+		$m = M('activity');
+		$data['name'] = I('title');
+		$data['start_time'] = I('start_time');
+		$data['end_time'] = I('end_time');
+		$data['address'] = I('address');
+		$data['desc'] = I('content');		
+		$arr =  array(
+			array('全体') ,
+			array('老师'),
+			array('学生')
+			);
+		$index = I('rules');
+		$data['rules']  = $arr[$index-1][0];
+		if($m->data($data)->add()){
+			$this->success('活动添加成功');
+		}
+		else
+			$this->error('活动添加失败');
+
+	}
+
+	public function activityEdit(){
+		$m = M('activity');
+		$where['id'] = I('id');
+		$this->data = $m ->where($where)->find();
+		$this->arr =  array(
+			array('全体') ,
+			array('老师'),
+			array('学生')
+			);
+		//dump($this->data);
+		//修改时下拉条无法显示已选的值
+		$this->display();
+	}
+
+	public function editActivity(){
+		$m = M('activity');
+		$data['name'] = I('title');
+		$data['start_time'] = I('start_time');
+		$data['end_time'] = I('end_time');
+		$data['address'] = I('address');
+		$data['desc'] = I('content');		
+		$arr =  array(
+			array('全体') ,
+			array('老师'),
+			array('学生')
+			);
+		$index = I('rules');
+		$data['rules']  = $arr[$index-1][0];
+		if($m->data($data)->add()){
+			$this->success('活动修改成功');
+		}
+		else
+			$this->error('活动修改失败');
+	}
+	public function deleteActivity(){
+		$m = M('activity');
+		$where['id'] = I('id');
+		if($m ->where($where)->delete()){
+			$this->success('删除成功','activityList');
 		}
 		else
 			$this->error('删除失败');
