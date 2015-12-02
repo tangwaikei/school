@@ -1,0 +1,43 @@
+<extend name="Index:base" />
+<block name="title"><title>活动列表</title></block>
+<block name="sidebar">
+	<include file="Index:sidebar" />
+</block>
+
+<block name="content">
+		<div id="content" class="col-sm-9">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>活  动  列  表</strong></h4>
+					<a href="{:U('Home/Admin/newsAdd')}"><i class="glyphicon glyphicon-plus"></i></a>
+				</div>
+
+				<div class="panel-body">
+					<table class="table table-hover table-bordered table-condensed">
+						<tr>
+							<td width="10%">序号</td>			
+							<td width="40%">活动</td>
+							<td width="20%">开始时间</td>							
+							<td width="20%">地点</td>	
+							<td width="10%">类型</td>											
+						</tr>
+						
+						<volist name="data" id="vo">
+							<tr>
+								<td>{$i+$num}</td>
+								<td><a href="{:U('Home/Admin/activityRead',array('id'=>$vo['id']))}">{$vo['name']}</a></td>
+								<td>{$vo['end_time']}</td>
+								<td>{$vo['address']}</td>	
+								<td>{$vo['rules']}</td>	
+							</tr>
+						</volist>
+							<tr>
+								<td colspan="4">{$page}</td>
+							</tr>
+					</table>
+				</div>
+
+			</div>
+		</div>
+</block>
+
