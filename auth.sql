@@ -182,3 +182,23 @@ CREATE table `think_department`(
   `id` mediumint(8) unsigned NOT NULL auto_increment primary key,
   `dname`  varchar(32) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+create table `think_activity`(
+ `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+`name` varchar(128)  NOT NULL,
+`address` varchar(128) NOT NULL,
+`start_time`  timestamp NOT NULL ,
+`end_time`  timestamp NOT NULL ,
+`num` int(10) default '0',
+`desc`    text NOT NULL,
+`rules` char(128) DEFAULT NULL,#设置权限,家长?学生?老师?
+primary key(`id`),
+check('end_time>start_time')
+)ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+create table `think_activity_user`(
+`user_id` mediumint(8) unsigned ,
+`activity_id` mediumint(8) unsigned ,
+primary key(`user_id`,`activity_id`)
+)ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
