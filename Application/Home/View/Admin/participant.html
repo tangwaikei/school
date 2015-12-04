@@ -1,0 +1,70 @@
+<extend name="Index:base" />
+<block name="title"><title>参加活动人员列表</title></block>
+<block name="sidebar">
+	<include file="Index:sidebar" />
+</block>
+
+<block name="content">
+		<div id="content" class="col-sm-9">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title"><strong>活  动  列  表</strong></h4>
+					<a href="{:U('Home/Admin/activityList')}"><i class="glyphicon glyphicon-plus"></i></a>
+				</div>
+
+				<div class="panel-body">
+
+					   <h2><span id="" title="{$list.title}">{$list.name}</span><span style="color:blue">{$list.rules}</span></h2>
+                                                                        
+                                                                        <table border="0" cellpadding="0" cellspacing="0" class="datetable">
+                                                                            <tbody><tr>
+                                                                                <td width="2%">
+                                                                                    开始时间(Date)
+                                                                                </td>
+                                                                                <td colspan="2" width="8%">
+                                                                                    <span id="" title="{$list.start_time}">{$list.start_time}</span>
+                                                                                </td>
+                                                                            </tr>     
+                                                                            <tbody><tr>
+                                                                                <td width="2%">
+                                                                                    结束时间(Date)
+                                                                                </td>
+                                                                                <td colspan="2" width="8%">
+                                                                                    <span id="" title="{$list.end_time}">{$list.end_time}</span>
+                                                                                </td>
+                                                                            </tr>                                
+                                                                            <!--//2015.02.21 Armstrong 修正網址顯示異常 - start-->
+                                                                            <tr class="altrow">
+                                                                                <td>
+                                                                                    活动地点
+                                                                                </td>
+                                                                                <td colspan="2">
+                                                                                    <span id="">{$list.address}<br></span>
+                                                                                </td>
+                                                                            </tr>                                                                            
+                                                                  
+                                                                        </tbody>
+                                                                        </table>
+
+					<table class="table table-hover table-bordered table-condensed">
+						<tr>	
+							<td>序号</td>						
+							<td >姓名</td>											
+						</tr>
+						
+						<volist name="data" id="vo">
+							<tr>
+								<td>{$i+$num}</td>								
+								<td>{$vo['username']}</td>	
+							</tr>
+						</volist>
+							<tr>
+								<td colspan="4">{$page}</td>
+							</tr>
+					</table>
+				</div>
+
+			</div>
+		</div>
+</block>
+

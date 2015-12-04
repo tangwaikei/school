@@ -413,4 +413,35 @@ class AdminController extends BaseController{
 		else
 			$this->error('删除失败');
 	}
+
+	public function participant(){
+		$where['id'] = I('id');
+		$mm = M('activity');		
+		$list = $this->list = $mm ->where($where)->find();
+		
+		$m = M('activity_user');
+		$count = $list['num'];
+		$page = new \Think\Page($count,5);
+		$page ->rollpage = '7';
+		$page ->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+		$show = $page->show();
+		$this->page = $show;
+		$this->num  = $page->firstRow;// 起始行数
+		$sql = "select  a.id as id,
+		a.username as username 
+		from think_user  as a
+		inner join think_activity_user as b 
+		on  a.id = b.user_id
+		join think_activity as c
+		on c.id = b.activity_id
+		where b.activity_id = {$where['id']}
+		order by id  limit {$page->firstRow},{$page->listRows}";
+		/*echo $sql;
+		echo $page->listRows;*/
+		//dump($this->list);
+		$this->data= $m ->query($sql);
+		/*dump($data);
+		echo $data[0]['username'];*/
+		$this->display();
+	}
 }
